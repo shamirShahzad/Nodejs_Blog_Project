@@ -1,0 +1,30 @@
+{
+  "name": "nodejs_blog",
+  "version": "1.0.0",
+  "description": "Just another node js blog project",
+  "main": "app.js",
+  "scripts": {
+    "start": "node --watch app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shamirShahzad/Nodejs_Blog_Project.git"
+  },
+  "keywords": [
+    "Nodejs",
+    "Mongodb",
+    "blog"
+  ],
+  "author": "Shamir Shahzad",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shamirShahzad/Nodejs_Blog_Project/issues"
+  },
+  "homepage": "https://github.com/shamirShahzad/Nodejs_Blog_Project#readme",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5"
+  }
+}
