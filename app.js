@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const MongoStore = require("connect-mongo");
 const User = require("./models/User");
 const authRouter = require("./routes/authRoutes");
+const postsRouter = require("./routes/postsRoutes");
 const session = require("express-session");
 const passport = require("passport");
 const passportConfig = require("./config/passport");
@@ -39,6 +40,7 @@ app.get("/", (req, res) => {
 
 //routes
 app.use("/auth", authRouter);
+app.use("/posts", postsRouter);
 
 // Connect to MongoDB
 mongoose

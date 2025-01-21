@@ -67,14 +67,6 @@ async function register(req, res) {
   }
 }
 
-function getDashboard(req, res) {
-  res.render("dashboard", {
-    title: "Dashboard",
-    user: req.user,
-    error: "",
-  });
-}
-
 function logout(req, res, next) {
   req.logout((err) => {
     if (err) {
@@ -90,7 +82,6 @@ const authController = {
   login,
   getRegister,
   register,
-  getDashboard,
   logout,
 };
 
