@@ -13,4 +13,7 @@ authRouter.post("/register", authController.register);
 //Login logic
 authRouter.post("/login", authController.login);
 
+//logout logic
+authRouter.get("/logout", authController.logout);
+
 module.exports = authRouter;

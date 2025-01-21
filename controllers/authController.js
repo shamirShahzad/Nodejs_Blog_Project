@@ -3,9 +3,10 @@ const User = require("../models/User");
 const passport = require("passport");
 
 function getLogin(req, res) {
+  console.log(req.user);
   res.render("login", {
     title: "Login",
-    user: "",
+    user: req.user,
     error: "",
   });
 }
@@ -26,7 +27,7 @@ async function login(req, res, next) {
       if (err) {
         return next(err);
       }
-      return res.redirect("/auth/dashboard");
+      return res.redirect("/");
     });
   })(req, res, next);
 }
@@ -34,7 +35,7 @@ async function login(req, res, next) {
 function getRegister(req, res) {
   res.render("register", {
     title: "Register",
-    user: "",
+    user: req.user,
     error: "",
   });
 }
@@ -60,7 +61,7 @@ async function register(req, res) {
   } catch (error) {
     res.render("register", {
       title: "Register",
-      user: username,
+      user: req.user,
       error: error.message,
     });
   }
@@ -68,7 +69,19 @@ async function register(req, res) {
 
 function getDashboard(req, res) {
   res.render("dashboard", {
-    username: req.userObj ? req.userObj.username : "",
+    title: "Dashboard",
+    user: req.user,
+    error: "",
+  });
+}
+
+function logout(req, res, next) {
+  req.logout((err) => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    res.redirect("/auth/login");
   });
 }
 
@@ -78,6 +91,7 @@ const authController = {
   getRegister,
   register,
   getDashboard,
+  logout,
 };
 
 module.exports = authController;

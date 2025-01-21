@@ -29,6 +29,14 @@ app.use(passport.session());
 
 app.set("view engine", "ejs");
 
+app.get("/", (req, res) => {
+  res.render("home", {
+    title: "Home",
+    user: req.user,
+    error: "",
+  });
+});
+
 //routes
 app.use("/auth", authRouter);
 
