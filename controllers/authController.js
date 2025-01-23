@@ -1,17 +1,18 @@
+const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const passport = require("passport");
 
-function getLogin(req, res) {
+const getLogin = asyncHandler(function (req, res) {
   console.log(req.user);
   res.render("login", {
     title: "Login",
     user: req.user,
     error: "",
   });
-}
+});
 
-async function login(req, res, next) {
+const login = asyncHandler(async function (req, res, next) {
   passport.authenticate("local", (err, user, info) => {
     if (err) {
       return next(err);
@@ -27,20 +28,20 @@ async function login(req, res, next) {
       if (err) {
         return next(err);
       }
-      return res.redirect("/");
+      return res.redirect("/user/profile");
     });
   })(req, res, next);
-}
+});
 
-function getRegister(req, res) {
+const getRegister = asyncHandler(function (req, res) {
   res.render("register", {
     title: "Register",
     user: req.user,
     error: "",
   });
-}
+});
 
-async function register(req, res) {
+const register = asyncHandler(async function (req, res) {
   const { username, email, password } = req.body;
   try {
     const exists = await User.findOne({ email });
@@ -65,9 +66,9 @@ async function register(req, res) {
       error: error.message,
     });
   }
-}
+});
 
-function logout(req, res, next) {
+const logout = asyncHandler(function (req, res, next) {
   req.logout((err) => {
     if (err) {
       console.log(err);
@@ -75,7 +76,7 @@ function logout(req, res, next) {
     }
     res.redirect("/auth/login");
   });
-}
+});
 
 const authController = {
   getLogin,

@@ -1,15 +1,22 @@
 require("dotenv").config();
+
+// Packages
 const express = require("express");
 const app = express();
 const port = process.env.port;
 const mongoose = require("mongoose");
 const MongoStore = require("connect-mongo");
-const User = require("./models/User");
+const passport = require("passport");
+const session = require("express-session");
+const methodOverride = require("method-override");
+
+// Routes and Models
 const authRouter = require("./routes/authRoutes");
 const postsRouter = require("./routes/postsRoutes");
-const session = require("express-session");
-const passport = require("passport");
 const passportConfig = require("./config/passport");
+const errorHandler = require("./middlewares/errorHandler");
+const commentRouter = require("./routes/commentRoutes");
+const userRouter = require("./routes/userRoutes");
 
 //Middlewares
 app.use(express.urlencoded({ extended: true }));
@@ -23,6 +30,7 @@ app.use(
     }),
   })
 );
+app.use(methodOverride("_method"));
 
 passportConfig(passport);
 app.use(passport.initialize());
@@ -41,6 +49,10 @@ app.get("/", (req, res) => {
 //routes
 app.use("/auth", authRouter);
 app.use("/posts", postsRouter);
+app.use("/user", userRouter);
+app.use("/", commentRouter);
+
+// app.use(errorHandler);
 
 // Connect to MongoDB
 mongoose
